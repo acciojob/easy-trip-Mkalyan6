@@ -49,8 +49,11 @@ public class AirportRepository {
         int TopTerminals = TopTerminalObj.getNoOfTerminals();
         while (pqForGetTerminal.size() > 0) {
             Airport a = pqForGetTerminal.remove();
-            if (a.getNoOfTerminals() != TopTerminals) return airportName;
-            if (airportName.compareTo(a.getAirportName()) > 0) {
+            if (a.getNoOfTerminals() != TopTerminals){
+
+                return airportName;
+            }
+            if (airportName.compareToIgnoreCase(a.getAirportName()) > 0) {
                 airportName = a.getAirportName();
             }
         }
