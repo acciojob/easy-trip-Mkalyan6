@@ -42,21 +42,26 @@ public class AirportRepository {
     }
 
     public String getLargestAirportName() {
+        List<Airport>list=new ArrayList<>();
         if (pqForGetTerminal.size() == 0) return null;
         if (pqForGetTerminal.size() == 1) return pqForGetTerminal.remove().getAirportName();
         Airport TopTerminalObj = pqForGetTerminal.remove();
+        list.add(TopTerminalObj);
         String airportName = TopTerminalObj.getAirportName();
         int TopTerminals = TopTerminalObj.getNoOfTerminals();
         while (pqForGetTerminal.size() > 0) {
             Airport a = pqForGetTerminal.remove();
+            list.add(a);
             if (a.getNoOfTerminals() != TopTerminals){
-
+                pqForGetTerminal.addAll(list);
                 return airportName;
             }
-            if (airportName.compareToIgnoreCase(a.getAirportName()) > 0) {
+            if (a.getAirportName().compareToIgnoreCase(airportName) < 0) {
                 airportName = a.getAirportName();
             }
         }
+        // what ever airports are deleted please add to the pq again
+        pqForGetTerminal.addAll(list);
         return airportName;
 //            if(a.getNoOfTerminals()!=b.getNoOfTerminals())return a.getAirportName();
 //            if(a.getAirportName().compareTo(b.getAirportName())<0){
